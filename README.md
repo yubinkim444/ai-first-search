@@ -166,5 +166,14 @@ ai-first-search/
 - **[context-diff](https://github.com/yubinkim444/context-diff)** — `git diff` for the Claude Code context window.
 - **[agentwatch](https://github.com/yubinkim444/agentwatch)** — DevTools overlay for browser AI agents.
 
+### Legal
+
+This service queries a public search backend (DuckDuckGo by default) and
+fetches the resulting public web pages through the configured
+ai-first-scraper instance. It is a neutral content-fetching tool. Users
+are responsible for ensuring their use complies with the terms of service
+of the search backend and target sites, and any applicable law
+(`robots.txt`, scraping policies, rate limits, copyright, etc.).
+
 ### License
 MIT © yubinkim444

@@ -155,6 +155,11 @@ ai-first-search/
 ### Companion projects
 - **[ai-first-scraper](https://github.com/yubinkim444/ai-first-scraper)** — the per-URL Markdown cleaner this service fans out to.
 - **[ai-first-scraper-mcp](https://github.com/yubinkim444/ai-first-scraper-mcp)** — MCP server for Claude Desktop / Cursor / Cline.
+- **[mcp-rec](https://github.com/yubinkim444/mcp-rec)** — VCR for MCP servers.
+- **[llm-cache-proxy](https://github.com/yubinkim444/llm-cache-proxy)** — local SQLite cache for OpenAI/Anthropic.
+- **[promptlocker](https://github.com/yubinkim444/promptlock)** — lockfile for prompts; fail CI on drift.
+- **[context-diff](https://github.com/yubinkim444/context-diff)** — `git diff` for the Claude Code context window.
+- **[agentwatch](https://github.com/yubinkim444/agentwatch)** — DevTools overlay for browser AI agents.
 
 ### License
 MIT © yubinkim444

@@ -107,6 +107,11 @@ on DuckDuckGo for the search step (no API key) and on
 [ai-first-scraper](https://github.com/yubinkim444/ai-first-scraper) for the
 per-page cleaning step.
 
+### Public hosted instances
+
+- **Render**: <https://ai-first-search.onrender.com> (primary)
+- **HuggingFace Space**: <https://fingerdog50-ai-first-search.hf.space> (mirror)
+
 ### Quick start
 
 ```bash

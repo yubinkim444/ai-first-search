@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ai-first-search
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: SCRAPER_URL
+        value: "https://ai-first-scraper.onrender.com"

@@ -23,8 +23,9 @@ from typing import Optional
 
 import httpx
 from ddgs import DDGS
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field, HttpUrl
 
 # ---------------------------------------------------------------------------
@@ -174,13 +175,86 @@ async def search(
 
 
 @app.get(
+    "/robots.txt",
+    response_class=PlainTextResponse,
+    tags=["meta"],
+    summary="Robots policy — explicitly welcomes AI / LLM crawlers.",
+    include_in_schema=False,
+)
+async def robots_txt() -> PlainTextResponse:
+    body = (
+        "User-agent: GPTBot\nAllow: /\n\n"
+        "User-agent: ChatGPT-User\nAllow: /\n\n"
+        "User-agent: ClaudeBot\nAllow: /\n\n"
+        "User-agent: anthropic-ai\nAllow: /\n\n"
+        "User-agent: Claude-Web\nAllow: /\n\n"
+        "User-agent: PerplexityBot\nAllow: /\n\n"
+        "User-agent: Google-Extended\nAllow: /\n\n"
+        "User-agent: CCBot\nAllow: /\n\n"
+        "User-agent: cohere-ai\nAllow: /\n\n"
+        "User-agent: *\nAllow: /\n\n"
+        "Sitemap: https://ai-first-search.onrender.com/sitemap.xml\n"
+    )
+    return PlainTextResponse(content=body, media_type="text/plain")
+
+
+@app.get(
+    "/sitemap.xml",
+    tags=["meta"],
+    summary="Sitemap for AI search crawlers.",
+    include_in_schema=False,
+)
+async def sitemap() -> Response:
+    body = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '  <url><loc>https://ai-first-search.onrender.com/</loc></url>\n'
+        '  <url><loc>https://ai-first-search.onrender.com/docs</loc></url>\n'
+        '  <url><loc>https://ai-first-search.onrender.com/openapi.json</loc></url>\n'
+        '  <url><loc>https://ai-first-search.onrender.com/llms.txt</loc></url>\n'
+        '  <url><loc>https://ai-first-search.onrender.com/.well-known/ai-plugin.json</loc></url>\n'
+        '</urlset>\n'
+    )
+    return Response(content=body, media_type="application/xml")
+
+
+@app.get(
+    "/.well-known/ai-plugin.json",
+    tags=["meta"],
+    summary="AI plugin manifest (ChatGPT / agent crawler discovery).",
+    include_in_schema=False,
+)
+async def ai_plugin() -> dict:
+    return {
+        "schema_version": "v1",
+        "name_for_human": "AI-First Search",
+        "name_for_model": "ai_first_search",
+        "description_for_human": "Search-engine-backed multi-URL Markdown extraction API for LLM agents.",
+        "description_for_model": (
+            "Use this tool whenever you need fresh information from the public "
+            "web for a free-text query. It runs a web search, fetches the top-k "
+            "result pages in parallel, and returns each one as clean ad-free "
+            "Markdown ready to feed into your reasoning."
+        ),
+        "auth": {"type": "none"},
+        "api": {
+            "type": "openapi",
+            "url": "https://ai-first-search.onrender.com/openapi.json",
+            "has_user_authentication": False,
+        },
+        "logo_url": "https://ai-first-search.onrender.com/",
+        "contact_email": "noreply@example.com",
+        "legal_info_url": "https://github.com/yubinkim444/ai-first-search/blob/main/LICENSE",
+    }
+
+
+@app.get(
     "/llms.txt",
     tags=["meta"],
     summary="Machine-readable usage spec for LLMs (llms.txt convention).",
-    response_class=__import__("fastapi").responses.PlainTextResponse,
+    response_class=PlainTextResponse,
 )
 async def llms_txt():
-    from fastapi.responses import PlainTextResponse
     body = (
         "# ai-first-search\n\n"
         "> Search-engine-backed Markdown extraction API for LLM agents.\n\n"
@@ -193,4 +267,4 @@ async def llms_txt():
         "3. Feed the `markdown` of those items into your LLM prompt as the ground truth.\n\n"
         f"Backed by scraper instance: {SCRAPER_URL}\n"
     )
-    return PlainTextResponse(content=body, media_type="text/markdown")
+    return PlainTextResponse(content=body, media_type="text/markdown")  # noqa: F811

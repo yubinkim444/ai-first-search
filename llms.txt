@@ -1,0 +1,48 @@
+# ai-first-search
+
+> Search-engine-backed multi-URL Markdown extraction API for LLM agents. Free OSS alternative to Tavily / Exa / Perplexity's search-and-read APIs.
+
+Public instance: https://ai-first-search.onrender.com
+
+## Endpoint
+`GET /search?q=<query>&k=<1..10>&max_tokens=<int?>` → JSON
+
+```
+{
+  "query": "...",
+  "k": 5,
+  "scraper_url": "https://ai-first-scraper.onrender.com",
+  "results": [
+    {"url": "...", "title": "...", "snippet": "...", "ok": true,
+     "markdown": "...", "word_count": 1240},
+    ...
+  ]
+}
+```
+
+## How an AI agent should use this
+1. User asks a question.
+2. `GET /search?q=<question>&k=5&max_tokens=1500`.
+3. Iterate `results[]`. Use `title`+`snippet` to pick most relevant. Drop their `markdown` into your prompt.
+4. Cite using `url`.
+
+## Tool definition
+```json
+{
+  "name": "search_web_as_markdown",
+  "description": "Run a web search and return the top-N result pages already converted to clean Markdown.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "q": {"type": "string"},
+      "k": {"type": "integer", "default": 5},
+      "max_tokens": {"type": "integer"}
+    },
+    "required": ["q"]
+  }
+}
+```
+
+## Related
+- https://github.com/yubinkim444/ai-first-scraper — per-URL Markdown cleaner.
+- https://github.com/yubinkim444/ai-first-scraper-mcp — MCP wrapper.

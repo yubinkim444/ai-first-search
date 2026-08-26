@@ -175,5 +175,14 @@ are responsible for ensuring their use complies with the terms of service
 of the search backend and target sites, and any applicable law
 (`robots.txt`, scraping policies, rate limits, copyright, etc.).
 
+### About the author
+
+Built by [yubinkim444](https://github.com/yubinkim444), who also makes
+**[Kay's Records](https://kay-s-record.web.app/get.html)** — an app for iOS
+and Android.
+
+If this project saved you time, giving the app a try is the nicest way to say
+thanks.
+
 ### License
 MIT © yubinkim444

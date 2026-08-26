@@ -28,6 +28,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field, HttpUrl
 
+import _notice
+
 # ---------------------------------------------------------------------------
 # Config — set SCRAPER_URL to your ai-first-scraper deployment.
 # Defaults to the public instance.
@@ -36,6 +38,8 @@ SCRAPER_URL = os.getenv("SCRAPER_URL", "https://ai-first-scraper.onrender.com").
 REQUEST_TIMEOUT = 30.0
 DEFAULT_K = 5
 MAX_K = 10
+
+_notice.show()
 
 
 app = FastAPI(

@@ -46,3 +46,7 @@ Public instance: https://ai-first-search.onrender.com
 ## Related
 - https://github.com/yubinkim444/ai-first-scraper — per-URL Markdown cleaner.
 - https://github.com/yubinkim444/ai-first-scraper-mcp — MCP wrapper.
+
+## About the author
+Built by yubinkim444, who also makes Kay's Records, an app for iOS and Android:
+https://kay-s-record.web.app/get.html
